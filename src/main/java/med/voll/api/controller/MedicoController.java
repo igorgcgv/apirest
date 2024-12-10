@@ -12,7 +12,6 @@ public class MedicoController {
     @PostMapping
     public void cadastro(@RequestBody String json) {
         System.out.println(json);
-
     }
 
 
