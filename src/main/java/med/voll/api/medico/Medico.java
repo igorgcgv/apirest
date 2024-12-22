@@ -1,5 +1,6 @@
 package med.voll.api.medico;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import med.voll.api.endereco.Endereco;
@@ -24,12 +25,17 @@ public class Medico {
 
     @Embedded
     private Endereco endereco;
+
+    private boolean ativo;
+
+
     //Construtor
     public Medico() {
     }
 
 
     public Medico(DadosCadastroMedico dados) {
+        this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -68,6 +74,19 @@ public class Medico {
         return endereco;
     }
 
-
+    public Boolean getAtivo() {
+        return ativo;
     }
+
+
+//Validação se os dados estão vindo nulo pra atualizar @Valid
+    public void atualizarInformacoes(@Valid DadosAtualizacaoMedico dados) {
+
+        
+    }
+
+    public void excluir() {
+        this.ativo=false;
+    }
+}
 

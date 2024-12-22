@@ -1,10 +1,7 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.medico.DadosCadastroMedico;
-import med.voll.api.medico.DadosListagemMedico;
-import med.voll.api.medico.Medico;
-import med.voll.api.medico.MedicoRepository;
+import med.voll.api.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,8 +24,37 @@ public class MedicoController {
 
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(DadosListagemMedico::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
     }
+
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
+        var medico = repository.getReferenceById(dados.id()); //Carregar os dados do banco de dados pelo ID
+        medico.atualizarInformacoes(dados);
+
+    }
+
+    // {id} é um padrão dinamico na url da api - Metodo de excluir permanente o registro no Banco
+//    @DeleteMapping("/{id}")
+//    @Transactional
+//    public void ecluix(@PathVariable Long id) {
+//        repository.deleteById(id);
+//
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void ecluix(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
+
+
+    }
+
+
+
+    
 
 
 }
