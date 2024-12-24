@@ -1,0 +1,27 @@
+package med.voll.api.infra;
+
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+//Anotação utilizada para indicar que é uma classe java que trata erros na API
+@RestControllerAdvice
+public class TratadorDeErros {
+    //Erro 404 - Não encontrado
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity tratarErro404() {
+
+        return ResponseEntity.notFound().build();
+    }
+
+    // Erro 400 - Campo invalido
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity tratarErro400(MethodArgumentNotValidException ex) {
+        var erros = ex.getFieldErrors();
+
+
+        return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
+    }
+
+}
