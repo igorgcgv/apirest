@@ -36,7 +36,8 @@ public class Consulta {
 
 
     //Construtor
-    public Consulta(Medico medico, Paciente paciente, LocalDateTime data) {
+    public Consulta(Long id, Medico medico, Paciente paciente, LocalDateTime data) {
+        this.id = null;
         this.medico = medico;
         this.paciente = paciente;
         this.data = data;
