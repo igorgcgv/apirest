@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.medico.DadosCadastroMedico;
+import med.voll.api.domain.medico.Especialidade;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.paciente.Paciente;
 
@@ -14,12 +17,12 @@ import java.time.LocalDateTime;
 @Entity(name = "Consulta")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+
 @EqualsAndHashCode(of = "id")
 public class Consulta {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,4 +33,32 @@ public class Consulta {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     private LocalDateTime data;
+
+
+    //Construtor
+    public Consulta(Medico medico, Paciente paciente, LocalDateTime data) {
+        this.medico = medico;
+        this.paciente = paciente;
+        this.data = data;
+    }
+
+
+
+    // Getters manuais
+    public Long getId() {
+        return id;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
 }

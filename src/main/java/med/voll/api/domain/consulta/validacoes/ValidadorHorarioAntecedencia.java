@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Service
 public class ValidadorHorarioAntecedencia  implements ValidadorAgendamentoDeConsulta{
 
-    @Autowired
+
     public void validar (DadosAgendamentoConsulta dados){
 
         var dataConsulta = dados.data();

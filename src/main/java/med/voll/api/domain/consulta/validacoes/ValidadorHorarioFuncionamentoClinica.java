@@ -10,7 +10,7 @@ import java.time.DayOfWeek;
 @Service
 public class ValidadorHorarioFuncionamentoClinica implements ValidadorAgendamentoDeConsulta{
 
-    @Autowired
+
     public void validar (DadosAgendamentoConsulta dados) {
 
         var dataConsulta = dados.data();
